@@ -54,7 +54,7 @@ import { Authenticator } from './authenticator';
     generatorResolver.resolve(answer).generate(answer.options),
   );
 
-  await page.waitForSelector('.office-form-body');
+ await page.waitForSelector('.office-form-body');
 
   for (let i = 0; i < values.length; ++i) {
     const $question = await page.waitForSelector(`.office-form-question:nth-child(${i + 1})`);
