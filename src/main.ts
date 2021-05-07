@@ -54,7 +54,19 @@ import { Authenticator } from './authenticator';
     generatorResolver.resolve(answer).generate(answer.options),
   );
 
- await page.waitForSelector('.office-form-body');
+let done=true;
+  while(done){
+    try{
+      await page.waitForSelector('.office-form-body');
+      done=false;
+    }catch(e){
+      console.log('ReLogging in automatically');
+      await new Authenticator(page).login(
+        env['MICROSOFT_EMAIL'],
+        env['MICROSOFT_PASSWORD'],
+      );
+    }
+  }
 
   for (let i = 0; i < values.length; ++i) {
     const $question = await page.waitForSelector(`.office-form-question:nth-child(${i + 1})`);
